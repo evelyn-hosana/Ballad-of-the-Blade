@@ -1,8 +1,23 @@
 //Draw Event
-// Draw the expanded sheet music using its updated width
-draw_sprite_stretched(spr_sheetMusic, 0, x, y, sheet_width, sprite_get_height(spr_sheetMusic));
+// Use the image_alpha for fading
+draw_set_alpha(image_alpha);
 
-// Draw the notes on the expanded sheet music
-for (var i = 0; i < array_length(notes); i++) {
-    draw_circle_color(x + notes[i][0], y + notes[i][1], 5, c_black, c_black, false);
+// If we’re in the treble phase, draw the treble sprite at its normal size
+if (phase == "treble") {
+    draw_sprite(sprite_index, image_index, x, y);
+} 
+// Otherwise, we’re showing the staff, which may be stretched or scaled
+else {
+    draw_sprite_stretched(
+        sprite_index, 
+        image_index, 
+        x, 
+        y, 
+        sheet_width, 
+        sprite_get_height(sprite_index)
+    );
 }
+
+
+// Reset alpha so other objects draw normally
+draw_set_alpha(1);
