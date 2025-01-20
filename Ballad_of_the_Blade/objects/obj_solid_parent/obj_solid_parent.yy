@@ -1,18 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"obj_sheetMusicNotesPlatform",
+  "%Name":"obj_solid_parent",
   "eventList":[],
   "managed":true,
-  "name":"obj_sheetMusicNotesPlatform",
+  "name":"obj_solid_parent",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",
   },
-  "parentObjectId":{
-    "name":"obj_solid_parent",
-    "path":"objects/obj_solid_parent/obj_solid_parent.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,10 +27,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":true,
-  "spriteId":{
-    "name":"spr_note",
-    "path":"sprites/spr_note/spr_note.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }
