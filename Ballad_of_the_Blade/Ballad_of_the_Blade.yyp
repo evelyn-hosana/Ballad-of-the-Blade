@@ -11,9 +11,9 @@
   "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Animation Curves","folderPath":"folders/Animation Curves.yy","name":"Animation Curves","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Dialog System","folderPath":"folders/Dialog System.yy","name":"Dialog System","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Extensions","folderPath":"folders/Extensions.yy","name":"Extensions","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Dialog System","folderPath":"folders/Dialog System.yy","name":"Dialog System","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Notes","folderPath":"folders/Notes.yy","name":"Notes","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Particle Systems","folderPath":"folders/Particle Systems.yy","name":"Particle Systems","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -45,6 +45,7 @@
     {"id":{"name":"obj_sheetMusicNotesPlatform","path":"objects/obj_sheetMusicNotesPlatform/obj_sheetMusicNotesPlatform.yy",},},
     {"id":{"name":"obj_snail","path":"objects/obj_snail/obj_snail.yy",},},
     {"id":{"name":"obj_solid_parent","path":"objects/obj_solid_parent/obj_solid_parent.yy",},},
+    {"id":{"name":"obj_textbox","path":"objects/obj_textbox/obj_textbox.yy",},},
     {"id":{"name":"obj_tiles","path":"objects/obj_tiles/obj_tiles.yy",},},
     {"id":{"name":"rm_dialog_test","path":"rooms/rm_dialog_test/rm_dialog_test.yy",},},
     {"id":{"name":"rm_intro","path":"rooms/rm_intro/rm_intro.yy",},},
@@ -70,9 +71,9 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"rm_dialog_test","path":"rooms/rm_dialog_test/rm_dialog_test.yy",},},
     {"roomId":{"name":"rm_intro","path":"rooms/rm_intro/rm_intro.yy",},},
     {"roomId":{"name":"rm_one","path":"rooms/rm_one/rm_one.yy",},},
-    {"roomId":{"name":"rm_dialog_test","path":"rooms/rm_dialog_test/rm_dialog_test.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

@@ -2,9 +2,9 @@
   "$GMSprite":"",
   "%Name":"spr_sheetMusic",
   "bboxMode":0,
-  "bbox_bottom":71,
+  "bbox_bottom":105,
   "bbox_left":0,
-  "bbox_right":95,
+  "bbox_right":124,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -12,14 +12,14 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"b92f4821-9905-49fe-a44c-e1f0792a2109","name":"b92f4821-9905-49fe-a44c-e1f0792a2109","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"e1b4e9d6-1ee4-414e-a8ba-5820c0f6b247","name":"e1b4e9d6-1ee4-414e-a8ba-5820c0f6b247","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
-  "height":72,
+  "height":106,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"6d3913a3-a7d2-499d-802c-96b9be41df7a","blendMode":0,"displayName":"default","isLocked":false,"name":"6d3913a3-a7d2-499d-802c-96b9be41df7a","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"dca3fe35-a8e1-47ca-8b4e-423460c6f2ef","blendMode":0,"displayName":"default","isLocked":false,"name":"dca3fe35-a8e1-47ca-8b4e-423460c6f2ef","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_sheetMusic",
   "nineSlice":null,
@@ -69,8 +69,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"b92f4821-9905-49fe-a44c-e1f0792a2109","path":"sprites/spr_sheetMusic/spr_sheetMusic.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"2e171f6b-4286-425a-829d-d99e7b083e88","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"e1b4e9d6-1ee4-414e-a8ba-5820c0f6b247","path":"sprites/spr_sheetMusic/spr_sheetMusic.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"af103d8c-5aa1-46d3-881a-87fac19e34d9","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":96,
+  "width":125,
 }
