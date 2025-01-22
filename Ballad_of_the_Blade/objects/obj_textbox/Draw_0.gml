@@ -1,8 +1,9 @@
 //Draw
-var accept_key = keyboard_check_pressed(ord("E"));
+draw_set_color(c_white);
+var accept_key = keyboard_check_pressed(vk_enter);
 
 var textbox_x = camera_get_view_x(view_camera[0]);
-var textbox_y = camera_get_view_y(view_camera[0]) +700;
+var textbox_y = camera_get_view_y(view_camera[0]) + 200;
 
 //setup
 if setup == false

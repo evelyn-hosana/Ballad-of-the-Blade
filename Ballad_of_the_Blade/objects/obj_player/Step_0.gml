@@ -61,3 +61,9 @@ if (keyboard_check_pressed(vk_space)) {
 		music.visible = true;
 	}
 }
+
+// update health based on damage taken
+health -= damage_taken;
+if (health <= 0) {
+	instance_destroy(); // destroy player
+}
