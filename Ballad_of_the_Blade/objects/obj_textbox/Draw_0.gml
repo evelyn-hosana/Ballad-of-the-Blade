@@ -3,7 +3,7 @@ draw_set_color(c_white);
 var accept_key = keyboard_check_pressed(vk_enter);
 
 var textbox_x = camera_get_view_x(view_camera[0]);
-var textbox_y = camera_get_view_y(view_camera[0]) + 200;
+var textbox_y = camera_get_view_y(view_camera[0]) + 250;
 
 //setup
 if setup == false
@@ -21,7 +21,7 @@ if setup == false
 		text_length[p] = string_length(text[p]);
 		//get the x position for the textbox
 			//no character (center the textbox)
-			text_x_offset[p] = 500;
+			text_x_offset[p] = 140;
 	}
 }
 
@@ -69,4 +69,4 @@ draw_sprite_ext(txtb_spr,txtb_img,textbox_x + text_x_offset[page],textbox_y,text
 
 //draw the text
 var _drawtext = string_copy(text[page],1,draw_char);
-draw_text_ext_transformed(textbox_x + text_x_offset[page] +border, textbox_y +border,_drawtext,line_sep,line_width, 4, 4, 0);
+draw_text_ext_transformed(textbox_x + text_x_offset[page] +border, textbox_y +border,_drawtext,line_sep,line_width, 1, 1, 0);

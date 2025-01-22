@@ -3,9 +3,9 @@
 //depth = -9999;
 
 //textbox parameters
-textbox_width = 900;
-textbox_height = 300;
-border = 50;
+textbox_width = 360;
+textbox_height = 100;
+border = 15;
 line_sep = 12;
 line_width = textbox_width - border*2;
 txtb_spr = spr_textbox;
