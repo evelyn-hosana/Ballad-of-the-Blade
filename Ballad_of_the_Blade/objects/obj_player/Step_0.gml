@@ -1,85 +1,128 @@
-/// @description Player Movement Logic
-// In Step Event of Player
-//-------------------------------------
-// Only run movement if staff is not open
-//-------------------------------------
+/// @description Player Movement Logic (Step Event)
+
+// Only run movement if staff (puzzle) is not open
 if (!global.puzzle_active) {
-if (instance_number(obj_sheetMusic) == 0) {
+    // Also ensure no sheetMusic is present
+    if (instance_number(obj_sheetMusic) == 0) {
 
-    // Separate keys
-    var up_key    = keyboard_check(vk_up)   || keyboard_check(ord("W"));
-    var down_key  = keyboard_check(vk_down) || keyboard_check(ord("S"));
-    var left_key  = keyboard_check(vk_left) || keyboard_check(ord("A"));
-    var right_key = keyboard_check(vk_right)|| keyboard_check(ord("D"));
+        //-------------------------------------
+        // 1) Key inputs
+        //-------------------------------------
+        var up_key    = keyboard_check(vk_up)   || keyboard_check(ord("W"));
+        var down_key  = keyboard_check(vk_down) || keyboard_check(ord("S"));
+        var left_key  = keyboard_check(vk_left) || keyboard_check(ord("A"));
+        var right_key = keyboard_check(vk_right)|| keyboard_check(ord("D"));
 
-    // Check if the player is on a ladder
-    var onLadder = place_meeting(x, y, obj_ladder);
+        //-------------------------------------
+        // 2) Ladder logic
+        //-------------------------------------
+        var onLadder = place_meeting(x, y, obj_ladder);
 
-    // 1) Decide if climbing or not
-    if (onLadder && (up_key || down_key)) {
-        isClimbing = true;
-    } else if (!onLadder) {
-        isClimbing = false;
-    }
+        // Decide if climbing or not
+        if (onLadder && (up_key || down_key)) {
+            isClimbing = true;
+        } else if (!onLadder) {
+            isClimbing = false;
+        }
 
-    // 2) Movement logic
-    if (isClimbing) 
-    {
-        // -- LADDERS --
-        vspd    = 0;
-        gravity = 0;
-        if (up_key)    y -= climbSpeed;
-        if (down_key)  y += climbSpeed;
-    }
-    else 
-    {
-        // -- NORMAL MOVEMENT --
-        gravity = 0.5;
+        //-------------------------------------
+        // 3) Movement & Collision
+        //-------------------------------------
+        if (isClimbing) 
+        {
+            // -- LADDERS --
+            vspd    = 0;
+            gravity = 0;
 
-        // Jump logic (only if on ground and not on ladder)
+            // Move up/down the ladder
+            if (up_key)    y -= climbSpeed;
+            if (down_key)  y += climbSpeed;
+
+        }
+        else 
+        {
+            // -- NORMAL PLATFORMER MOVEMENT --
+            // Set gravity
+            var grav = 0.5; // Adjust if needed
+
+            // If on ground, reset vertical speed and allow jump
+            if (place_meeting(x, y + 1, obj_solid_parent)) {
+                vspd = 0; 
+                // Jump if pressing Up
+                if (up_key) {
+                    vspd = -jspd; 
+                }
+            } 
+            else {
+                // In air, apply gravity
+                if (vspd < 10) {
+                    vspd += grav;
+                }
+            }
+
+            // Horizontal input
+            if (right_key) {
+                hspd = spd;
+            } else if (left_key) {
+                hspd = -spd;
+            } else {
+                hspd = 0;
+            }
+
+            //-------------------------------------------------------------
+            // VERTICAL COLLISION CHECK (check BEFORE actually moving)
+            //-------------------------------------------------------------
+            var newY = y + vspd;
+
+            // If moving vertically won’t collide, just move
+            if (!place_meeting(x, newY, obj_solid_parent)) {
+                y = newY;
+            } 
+            else {
+                // If it would collide, move until just before collision
+                var verticalDir = sign(vspd);
+                while (!place_meeting(x, y + verticalDir, obj_solid_parent)) {
+                    y += verticalDir;
+                }
+                // Stop vertical speed
+                vspd = 0;
+            }
+
+            //-------------------------------------------------------------
+            // HORIZONTAL COLLISION CHECK
+            //-------------------------------------------------------------
+            var newX = x + hspd;
+
+            // If moving horizontally won’t collide, just move
+            if (!place_meeting(newX, y, obj_solid_parent)) {
+                x = newX;
+            } 
+            else {
+                // If it would collide, move until just before collision
+                var horizontalDir = sign(hspd);
+                while (!place_meeting(x + horizontalDir, y, obj_solid_parent)) {
+                    x += horizontalDir;
+                }
+                // Stop horizontal speed
+                hspd = 0;
+            }
+        }
+
+        // Optional debug messages if you want to verify ground detection
+        /*
         if (place_meeting(x, y + 1, obj_solid_parent)) {
-            vspd = 0;
-            if (up_key) {
-                vspd = -jspd;
-            }
+            show_debug_message("Ground detected!");
         } else {
-            if (vspd < 10) vspd += grav;
+            show_debug_message("No ground detected!");
         }
-
-        // Horizontal movement
-        if (right_key) {
-            hspd = spd;
-        } 
-        else if (left_key) {
-            hspd = -spd;
-        } 
-        else {
-            hspd = 0;
-        }
-
-        // Apply vertical collision first
-        if (place_meeting(x, y + vspd, obj_solid_parent)) {
-            while (!place_meeting(x, y + sign(vspd), obj_solid_parent)) {
-                y += sign(vspd);
-            }
-            vspd = 0;
-        }
-        y += vspd;
-
-        // Apply horizontal collision
-        if (place_meeting(x + hspd, y, obj_solid_parent)) {
-            while (!place_meeting(x + sign(hspd), y, obj_solid_parent)) {
-                x += sign(hspd);
-            }
-            hspd = 0;
-        }
-        x += hspd;
+        */
     }
 }
-}
 
-// update health based on damage taken
+//-------------------------------------
+// 4) Health and death
+//-------------------------------------
 health -= damage_taken;
 if (health <= 0) {
-	instance_destroy(); // destroy player
+    instance_destroy(); // destroy player
 }

@@ -74,6 +74,7 @@ switch (state) {
             var puzzle_y = camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) / 2;
             instance_create_layer(puzzle_x, puzzle_y, "StaffLayer", obj_puzzle_1);
 			global.puzzle_active = true;
+			show_debug_message("MISSION_SENT state reached. Creating puzzle now...");
         }
 
         // Transition to the next state when the puzzle is complete
