@@ -4,64 +4,78 @@
 // Only run movement if staff is not open
 //-------------------------------------
 if (!global.puzzle_active) {
-	if (instance_number(obj_sheetMusic) == 0) {
-	    // movement keys
-	    var jump_key = keyboard_check(vk_up) || keyboard_check(ord("W"));
-	    var left_key = keyboard_check(vk_left) || keyboard_check(ord("A"));
-	    var right_key = keyboard_check(vk_right) || keyboard_check(ord("D"));
+if (instance_number(obj_sheetMusic) == 0) {
 
-	    // check for ground
-	    if (place_meeting(x, y+1, obj_solid_parent)) {
-	        vspd = 0;
-	        if (jump_key) vspd = -jspd;
-	    } else {
-	        if (vspd < 10) vspd += grav;
-	    }
+    // Separate keys
+    var up_key    = keyboard_check(vk_up)   || keyboard_check(ord("W"));
+    var down_key  = keyboard_check(vk_down) || keyboard_check(ord("S"));
+    var left_key  = keyboard_check(vk_left) || keyboard_check(ord("A"));
+    var right_key = keyboard_check(vk_right)|| keyboard_check(ord("D"));
 
-	    // horizontal input
-	    if (right_key) hspd = spd;
-	    else if (left_key) hspd = -spd;
-	    else hspd = 0;
+    // Check if the player is on a ladder
+    var onLadder = place_meeting(x, y, obj_ladder);
 
-	    // horizontal collision
-	    if (place_meeting(x + hspd, y, obj_solid_parent)) {
-	        while (!place_meeting(x + sign(hspd), y, obj_solid_parent)) {
-	            x += sign(hspd);
-	        }
-	        hspd = 0;
-	    }
-	    x += hspd;
+    // 1) Decide if climbing or not
+    if (onLadder && (up_key || down_key)) {
+        isClimbing = true;
+    } else if (!onLadder) {
+        isClimbing = false;
+    }
 
-	    // vertical collision
-	    if (place_meeting(x, y + vspd, obj_solid_parent)) {
-	        while (!place_meeting(x, y + sign(vspd), obj_solid_parent)) {
-	            y += sign(vspd);
-	        }
-	        vspd = 0;
-	    }
-	    y += vspd;
-	}
+    // 2) Movement logic
+    if (isClimbing) 
+    {
+        // -- LADDERS --
+        vspd    = 0;
+        gravity = 0;
+        if (up_key)    y -= climbSpeed;
+        if (down_key)  y += climbSpeed;
+    }
+    else 
+    {
+        // -- NORMAL MOVEMENT --
+        gravity = 0.5;
 
-	//summon the sheet music
-	if (keyboard_check_pressed(vk_space)) {
-	   if (instance_number(obj_sheetMusic) > 0) {
-	        // staff is open => close it
-			        show_debug_message("Number of staff before destruction: " + string(instance_number(obj_sheetMusic)));
+        // Jump logic (only if on ground and not on ladder)
+        if (place_meeting(x, y + 1, obj_solid_parent)) {
+            vspd = 0;
+            if (up_key) {
+                vspd = -jspd;
+            }
+        } else {
+            if (vspd < 10) vspd += grav;
+        }
 
-				// staff is open => close it
-				with (obj_sheetMusic) {
-				    show_debug_message("Destroying staff ID: " + string(id));
-				    instance_destroy();
-				}
+        // Horizontal movement
+        if (right_key) {
+            hspd = spd;
+        } 
+        else if (left_key) {
+            hspd = -spd;
+        } 
+        else {
+            hspd = 0;
+        }
 
-				show_debug_message("Number of staff after destruction: " + string(instance_number(obj_sheetMusic)));
-		} else {
-		    var offset_x = 50;  // Adjust this value to place it in front of the player
-			var offset_y = -50;   // Adjust if needed for vertical alignment
-			var music = instance_create_layer(x + (image_xscale * offset_x), y + offset_y, "StaffLayer", obj_sheetMusic);
-			music.visible = true;
-		}
-	}
+        // Apply vertical collision first
+        if (place_meeting(x, y + vspd, obj_solid_parent)) {
+            while (!place_meeting(x, y + sign(vspd), obj_solid_parent)) {
+                y += sign(vspd);
+            }
+            vspd = 0;
+        }
+        y += vspd;
+
+        // Apply horizontal collision
+        if (place_meeting(x + hspd, y, obj_solid_parent)) {
+            while (!place_meeting(x + sign(hspd), y, obj_solid_parent)) {
+                x += sign(hspd);
+            }
+            hspd = 0;
+        }
+        x += hspd;
+    }
+}
 }
 
 // update health based on damage taken
