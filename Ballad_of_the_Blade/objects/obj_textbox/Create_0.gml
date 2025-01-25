@@ -16,10 +16,7 @@ txtb_img_spd = 6/60;
 page = 0;
 page_number = 0;
 //default text
-text[0] = "This is a test of the textbox";
-text[1] = "This is ANOTHER test of the textbox";
-text[2] = "Please stop testing the textbox";
-text[3] = "Final text";
+text[0] = "Test";
 text_length[0] = string_length(text[0]);
 draw_char = 0;
 text_spd = 1;

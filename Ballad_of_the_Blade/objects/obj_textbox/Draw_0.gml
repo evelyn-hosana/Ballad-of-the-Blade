@@ -1,5 +1,4 @@
 //Draw
-draw_set_color(c_white);
 var accept_key = keyboard_check_pressed(vk_enter);
 
 var textbox_x = camera_get_view_x(view_camera[0]);
@@ -9,9 +8,6 @@ var textbox_y = camera_get_view_y(view_camera[0]) + 250;
 if setup == false
 { 
 	setup = true;
-	draw_set_font(global.font);
-	draw_set_valign(fa_top);
-	draw_set_halign(fa_left);
 	
 	// loop through the pages
 	page_number = array_length(text);

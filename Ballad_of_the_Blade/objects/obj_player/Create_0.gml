@@ -7,4 +7,4 @@ hspd = 0; // horizontal speed
 vspd = 0; // vertical speed
 jspd = 10; // jump speed
 max_health = 100;
-health = 80;
+health = 100;

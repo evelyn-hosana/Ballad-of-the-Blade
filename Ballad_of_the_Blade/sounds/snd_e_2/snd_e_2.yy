@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_e_2",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":1.128,
+  "name":"snd_e_2",
+  "parent":{
+    "name":"scale",
+    "path":"folders/Sounds/Puzzle 1/scale.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_e_2.mp3",
+  "type":0,
+  "volume":1.0,
+}
