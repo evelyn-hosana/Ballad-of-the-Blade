@@ -26,3 +26,26 @@ roll_speed = 8;
 
 
 sheet_height = sprite_get_height(spr_sheetMusic);
+
+// Suppose we have staff lines at these Y offsets (local coords):
+staffLines = [15, 25, 35, 45, 55, 65, 75];
+// Matching sounds:
+staffSounds = [snd_c, snd_d, snd_e, snd_f, snd_g, snd_a, snd_b];
+/// @function getNoteSound(localY)
+/// @desc Returns the sound resource that best matches the staff line nearest to localY
+function getNoteSound(localY)
+{
+    // staffLines and staffSounds might be global or instance variables
+    var nearestDist = 99999;
+    var nearestIndex = 0;
+    for (var i = 0; i < array_length(staffLines); i++)
+    {
+        var dist = abs(localY - staffLines[i]);
+        if (dist < nearestDist)
+        {
+            nearestDist = dist;
+            nearestIndex = i;
+        }
+    }
+    return staffSounds[nearestIndex];
+}

@@ -1,27 +1,34 @@
 // obj_sheetMusic Step Event
-if (mouse_check_button_pressed(mb_left)) {
-    // Are we clicking over the staff region (including expansion)?
-    //   x and y are the top-left in your new code
-    var left   = x;
-    var right  = x + sheet_width;
-    var top	    = y;
-    var bottom = y + sprite_get_height(spr_sheetMusic);
-	// Expansion threshold
-	var edge_buffer = 20;	
+if (mouse_check_button_pressed(mb_left)) 
+{
+    // 1) Calculate the local click position relative to the sheet
+    var localX = mouse_x - x;
+    var localY = mouse_y - y;
 
-    if (mouse_x >= left && mouse_x <= right && mouse_y >= top && mouse_y <= bottom) {
-        // Convert mouse position to local
-        var note_x = mouse_x - x; 
-        var note_y = mouse_y - y;
+    // 2) Check if the click is within our staff region
+    var staffTop    = 0;
+    var staffBottom = sprite_get_height(spr_sheetMusic);
+    var staffLeft   = 0;
+    var staffRight  = sheet_width; // or sprite_get_width(spr_sheetMusic) if fully unrolled
 
-        // Expand if near the edge
-		if (note_x > (sheet_width - edge_buffer - 1)) {
-		    target_width += 64; // roll out more
-		    show_debug_message("Target sheet width updated to: " + string(target_width));
-		}
+    if (localX >= staffLeft && localX <= staffRight && localY >= staffTop && localY <= staffBottom)
+    {
+        // 3) Expand if near the edge, etc. (same as your code)
+        var edge_buffer = 20;
+        if (localX > (sheet_width - edge_buffer - 1)) {
+            target_width += 64;
+        }
 
-        // Place the new note object
-        instance_create_layer(mouse_x, mouse_y, "StaffNotesLayer", obj_sheetMusicNotesPlatform);
+        // 4) Determine the note from the localY
+        var theSound = getNoteSound(localY); 
+          // calls the function in #2 above
+
+        // 5) Create the "platform note" object in the same place as the click
+        var newPlatform = instance_create_layer(mouse_x, mouse_y, "StaffNotesLayer", obj_sheetMusicNotesPlatform);
+
+        // 6) Assign the note
+        newPlatform.mySound = theSound;
+		show_debug_message("Assigned platform sound: " + string(theSound));
     }
 }
 

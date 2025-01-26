@@ -116,7 +116,29 @@ if (!global.puzzle_active) {
             show_debug_message("No ground detected!");
         }
         */
+		
     }
+	
+	//summon the sheet music
+		if (keyboard_check_pressed(vk_space)) {
+		   if (instance_number(obj_sheetMusic) > 0) {
+		        // staff is open => close it
+				        show_debug_message("Number of staff before destruction: " + string(instance_number(obj_sheetMusic)));
+
+					// staff is open => close it
+					with (obj_sheetMusic) {
+					    show_debug_message("Destroying staff ID: " + string(id));
+					    instance_destroy();
+					}
+
+					show_debug_message("Number of staff after destruction: " + string(instance_number(obj_sheetMusic)));
+			} else {
+			    var offset_x = 50;  // Adjust this value to place it in front of the player
+				var offset_y = -50;   // Adjust if needed for vertical alignment
+				var music = instance_create_layer(x + (image_xscale * offset_x), y + offset_y, "StaffLayer", obj_sheetMusic);
+				music.visible = true;
+			}
+		}
 }
 
 //-------------------------------------
