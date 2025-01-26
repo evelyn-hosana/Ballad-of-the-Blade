@@ -36,11 +36,11 @@ if (state == "walk") {
 		    hspd = -hspd;
 		}
 
-		// Move the enemy after checks
-		x += hspd;
+// Move the enemy after checks
+x += hspd;
 
     // Flip the sprite if moving left
-    image_xscale = (hspd < 0) ? 1 : -1;
+    image_xscale = (hspd < 0) ? -1 : 1;
 }
 
 // -- If in "dead" state, we could stop moving:
