@@ -9,6 +9,11 @@ jspd = 10; // jump speed
 max_health = 100;
 health = 100;
 
-// Player Create Event
+// Ladder climbing
 isClimbing = false;
 climbSpeed = 2; // example climbing speed
+
+//Wall jump
+wall_direction = 0;
+wall_jump_force = 5;
+wall_jumping = false;

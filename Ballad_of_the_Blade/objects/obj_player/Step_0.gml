@@ -12,9 +12,39 @@ if (!global.puzzle_active) {
         var down_key  = keyboard_check(vk_down) || keyboard_check(ord("S"));
         var left_key  = keyboard_check(vk_left) || keyboard_check(ord("A"));
         var right_key = keyboard_check(vk_right)|| keyboard_check(ord("D"));
+		var jump_key  = keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
 
         //-------------------------------------
-        // 2) Ladder logic
+        // 2) Wall Jump Variables
+        //-------------------------------------
+        if (jump_key && wall_direction != 0) {
+            vspd = -jspd;  // Apply upward force
+            hspd = wall_jump_force * -wall_direction;  // Jump away from the wall
+            wall_jumping = true;
+            alarm[2] = 30;  // Reset wall jumping state
+        }
+
+        if (wall_direction != 0 && vspd > 3) {
+            vspd = 1;  // Slow down fall when against a wall
+        }
+
+        // Detect left/right wall collision
+        if (left_key) {
+            if (place_meeting(x - 1, y, obj_solid_parent)) {
+                wall_direction = -1;
+                alarm[1] = 10;  // Reset wall state after 10 frames
+            }
+        }
+        if (right_key) {
+            if (place_meeting(x + 1, y, obj_solid_parent)) {
+                wall_direction = 1;
+                alarm[1] = 10;  // Reset wall state after 10 frames
+            }
+        }
+
+	
+        //-------------------------------------
+        // 3) Ladder logic
         //-------------------------------------
         var onLadder = place_meeting(x, y, obj_ladder);
 
@@ -26,7 +56,7 @@ if (!global.puzzle_active) {
         }
 
         //-------------------------------------
-        // 3) Movement & Collision
+        // 4) Movement & Collision
         //-------------------------------------
         if (isClimbing) 
         {
@@ -61,12 +91,14 @@ if (!global.puzzle_active) {
             }
 
             // Horizontal input
-            if (right_key) {
-                hspd = spd;
-            } else if (left_key) {
-                hspd = -spd;
-            } else {
-                hspd = 0;
+            if (!wall_jumping) {
+                if (right_key) {
+                    hspd = spd;
+                } else if (left_key) {
+                    hspd = -spd;
+                } else {
+                    hspd = 0;
+                }
             }
 
             //-------------------------------------------------------------
@@ -106,6 +138,8 @@ if (!global.puzzle_active) {
                 // Stop horizontal speed
                 hspd = 0;
             }
+			
+			
         }
 
         // Optional debug messages if you want to verify ground detection
