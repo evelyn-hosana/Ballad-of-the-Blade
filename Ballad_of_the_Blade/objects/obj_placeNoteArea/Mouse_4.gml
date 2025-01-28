@@ -28,15 +28,12 @@ if (instance_exists(obj_snapNoteToKey)) {
 	// check if snapped note matches correct key and note type
 	if ((snap_index == correct_key) && (global.sprite_frame_selected == correct_note_type)) {
         correct = true;
-		show_debug_message("Correct!");
 	} // if only key matches
 	else if ((snap_index == correct_key) && (global.sprite_frame_selected != correct_note_type)) {
 		correct = false;
 		show_message("You've got the right idea! It sounds right... but maybe another note would fit better.");
-		show_debug_message("Close!");
 	} else {
         correct = false;
-		show_debug_message("Wrong!");
 	}
 	
 	// change sprite to correct answer

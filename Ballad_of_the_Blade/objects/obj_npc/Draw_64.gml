@@ -1,6 +1,6 @@
 /// @description Draw Player Interaction Indication
 
-if (show_indicator) {
+if (in_range && show_indicator) {
     // scale world coordinates to GUI coordinates
     var camera_width = camera_get_view_width(view_camera[0]);
     var camera_height = camera_get_view_height(view_camera[0]);

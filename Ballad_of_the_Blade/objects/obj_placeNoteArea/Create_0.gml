@@ -7,7 +7,7 @@ correct = false;
 
 active_note = noone;
 
-snap = []
+snap = [];
 
 // place snap objects
 snap[1] = instance_create_layer(x, y + 15, "StaffNotesLayer", obj_snapNoteToKey);

@@ -26,6 +26,7 @@ if (selected) {
 if (global.hidden) {
 	visible = 0;
 	selected = false;
+	global.selected_noteSpawner = noone;
 } else {
 	visible = 1;
 }

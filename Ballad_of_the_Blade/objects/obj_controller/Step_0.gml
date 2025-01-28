@@ -31,3 +31,11 @@ if ((keyboard_check_direct(vk_control) && keyboard_check_pressed(ord("Z")))
 	    global.note_count -= 1;
 	}
 }
+
+// puzzle complete cheat
+if ((keyboard_check_direct(vk_control) && keyboard_check_pressed(ord("Q")))) {
+	if (global.puzzle_active && !global.puzzle_1_complete && instance_exists(obj_puzzle_1)) {
+		global.puzzle_1_complete = true;
+		global.puzzle_active = false;
+	}
+}

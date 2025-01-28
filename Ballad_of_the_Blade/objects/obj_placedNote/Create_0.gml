@@ -1,10 +1,5 @@
 /// @description Set Variables and Play Sound
 image_speed = 0;
-correct_notes = 0;
-
-if (image_index == 2 || image_index == 5) {
-	correct_notes++;
-}
 
 if (instance_exists(obj_snapNoteToKey)) {
     // find nearest snap object

@@ -6,13 +6,21 @@ enum NPCState {
 	AUDIO,
 	QUESTION,
 	MISSION_SENT,
-	MISSION_RECEIVED
+	MISSION_RECEIVED,
+	FOLLOW,
+	FINAL_THOUGHTS,
+	EXIT
 }
 
 // initial state
 state = NPCState.INTRO;
 show_indicator = false;
 textbox_created = false;
-textbox_closed = false;
 audio_played = false;
-state_timer = -1;
+
+// follow state
+vspd = 0;
+hspd = 0;
+dist = 50; // distance to maintain
+range = 50;
+in_range = false;

@@ -1,6 +1,7 @@
 /// @description Place Necessary Objects
 
 global.hidden = false;
+all_correct = false;
 
 // note spawners
 quarter_note = instance_create_layer(x + 135, y + 30, "StaffNotesLayer", obj_noteSpawner);

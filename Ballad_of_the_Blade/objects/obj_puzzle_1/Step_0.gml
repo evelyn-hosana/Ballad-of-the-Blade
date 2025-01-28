@@ -21,7 +21,35 @@ if (!instance_exists(obj_placeNoteArea) && !global.hidden) {
 	spawn_area();
 }
 
+if (!global.puzzle_1_complete && !global.hidden) {
+    var temp_correct = true; // temporary flag for current check
 
-if (global.puzzle_1_complete) {
-	instance_destroy(); // destroy puzzle and all its instance creations
+    // check each section's "correct" property
+    for (var i = 1; i <= 12; i++) {
+        var section = variable_instance_get(self, "section_" + string(i));
+        if (section != noone) {
+            if (!section.correct) {
+                temp_correct = false; // if any section is incorrect, puzzle is not complete
+                break;
+            }
+        } else {
+            show_debug_message("Section " + string(i) + " does not exist.");
+            temp_correct = false;
+            break;
+        }
+    }
+
+    // update "all_correct" only when conditions change
+    if (temp_correct && !all_correct) {
+        all_correct = true; // set to true only when all are correct
+        audio_play_sound(snd_violin, 1, false); // play audio
+
+        // set a timer to wait for audio to finish
+        var audio_length = audio_sound_length(snd_violin);
+        alarm[0] = ceil(room_speed * audio_length); // trigger alarm after audio finishes
+    }
+}
+
+if (global.puzzle_1_complete && !global.puzzle_active) {
+	instance_destroy();
 }
