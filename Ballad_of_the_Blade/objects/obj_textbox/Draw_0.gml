@@ -44,7 +44,7 @@ if accept_key
 					}
 				else 
 					{
-						instance_destroy();	
+						instance_destroy();
 					}
 			}
 		//if not done typing

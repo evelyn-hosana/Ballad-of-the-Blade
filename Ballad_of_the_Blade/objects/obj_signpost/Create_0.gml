@@ -6,4 +6,7 @@ text = ["Default sign text."];
 page = 0;
 page_number = 0;
 draw_char = 0;
+sign_number = 0;
+textbox_created = false;
+interaction_distance = 64;
 // etc...

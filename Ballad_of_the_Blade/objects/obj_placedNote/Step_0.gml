@@ -3,3 +3,7 @@
 if (global.puzzle_1_complete && !global.puzzle_active) {
 	instance_destroy();
 }
+
+if (global.intro_complete) {
+	instance_destroy();
+}

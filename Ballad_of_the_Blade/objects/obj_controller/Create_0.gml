@@ -7,5 +7,8 @@ instance_create_layer(0, 0, "GUI", obj_cursor);
 // puzzle globals
 global.puzzle_active = false;
 global.puzzle_1_complete = false;
+
 global.notes = [];
 global.note_count = 0;
+
+global.intro_complete = false;
