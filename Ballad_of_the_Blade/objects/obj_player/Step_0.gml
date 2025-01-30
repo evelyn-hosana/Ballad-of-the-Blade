@@ -129,20 +129,39 @@ else {
 // Re-check if on ground AFTER the vertical collision:
 isOnGround = place_meeting(x, y + 2, obj_solid_parent);
 
-// Horizontal
+// HORIZONTAL COLLISION WITH "STEP UP"
 var newX = x + hspd;
 if (!place_meeting(newX, y, obj_solid_parent)) {
+    // no collision at all, so just move
     x = newX;
-} 
-else {
+} else {
+    // we are colliding horizontally; try stepping up
+    var stepped = false;
+    var stepHeight = 10; // or however many pixels you want to “step” 
     var hd = sign(hspd);
-    // move left/right until we just collide
-    while(!place_meeting(x + hd, y, obj_solid_parent)) {
-        x += hd;
-    }
-    hspd = 0;
-}
 
+    // Try moving up 1..stepHeight pixels
+    for (var i = 1; i <= stepHeight; i++) {
+        // Check both horizontal + vertical at that "i" offset
+        if (!place_meeting(newX, y - i, obj_solid_parent)) {
+            // We also want to ensure we won't clip into the block vertically
+            if (!place_meeting(newX, (y - i) + vspd, obj_solid_parent)) {
+                x = newX;
+                y -= i; // step up
+                stepped = true;
+                break;
+            }
+        }
+    }
+    
+    // If we couldn't step up, do the normal "snap to wall" collision
+    if (!stepped) {
+        while(!place_meeting(x + hd, y, obj_solid_parent)) {
+            x += hd;
+        }
+        hspd = 0;
+    }
+}
 //-----------------------------------------
 // 8) Determine "State" and Set Sprite
 //-----------------------------------------
