@@ -29,7 +29,7 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":true,
+  "solid":false,
   "spriteId":{
     "name":"spr_invisiblesolid",
     "path":"sprites/spr_invisiblesolid/spr_invisiblesolid.yy",

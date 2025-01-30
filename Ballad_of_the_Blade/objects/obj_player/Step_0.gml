@@ -1,213 +1,227 @@
 /// @description Player Movement Logic (Step Event)
 
-// Run movement if puzzle is not open and no sheetMusic is present
-if (!global.puzzle_active) {
-	if (instance_number(obj_sheetMusic) == 0) {
-	    //-------------------------------------
-	    // 1) Key inputs
-	    //-------------------------------------
-	    var up_key    = keyboard_check(vk_up) || keyboard_check(ord("W"));
-	    var down_key  = keyboard_check(vk_down) || keyboard_check(ord("S"));
-	    var left_key  = keyboard_check(vk_left) || keyboard_check(ord("A"));
-	    var right_key = keyboard_check(vk_right) || keyboard_check(ord("D"));
-		var jump_key    = keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
-
-	    //-------------------------------------
-	    // 2) Wall Jump Variables
-	    //-------------------------------------
-	    if (jump_key && wall_direction != 0) {
-	        vspd = -jspd;  // Apply upward force
-	        hspd = wall_jump_force * -wall_direction;  // Jump away from the wall
-	        wall_jumping = true;
-	        alarm[2] = 30;  // Reset wall jumping state
-		}
-
-	    if (wall_direction != 0 && vspd > 3) {
-	        vspd = 1;  // Slow down fall when against a wall
-	    }
-
-	    // Detect left/right wall collision
-	    if (left_key) {
-	        if (place_meeting(x - 1, y, obj_solid_parent)) {
-	            wall_direction = -1;
-	            alarm[1] = 10;  // Reset wall state after 10 frames
-	        }
-	    }
-	    if (right_key) {
-	        if (place_meeting(x + 1, y, obj_solid_parent)) {
-	            wall_direction = 1;
-	            alarm[1] = 10;  // Reset wall state after 10 frames
-	        }
-	    }
-	
-	    //-------------------------------------
-	    // 3) Ladder logic
-	    //-------------------------------------
-	    var onLadder = place_meeting(x, y, obj_ladder);
-
-	    // Decide if climbing or not
-	    if (onLadder && (up_key || down_key)) {
-	        isClimbing = true;
-	    } else if (!onLadder) {
-	        isClimbing = false;
-	    }
-
-	    //-------------------------------------
-	    // 4) Movement & Collision
-	    //-------------------------------------
-	    if (isClimbing) {
-	        // -- LADDERS --
-	        vspd    = 0;
-	        gravity = 0;
-
-	        // Move up/down the ladder
-	        if (up_key)    y -= climbSpeed;
-	        if (down_key)  y += climbSpeed;
-	    } else {
-	        // -- NORMAL PLATFORMER MOVEMENT --
-	        // Set gravity
-	        var grav = 0.5; // Adjust if needed
-
-	        // If on ground, reset vertical speed and allow jump
-	        if (place_meeting(x, y + 1, obj_solid_parent)) {
-	            vspd = 0; 
-	            // Jump if pressing Up
-	            if (up_key) {
-	                vspd = -jspd;
-	            }
-	        } else {
-	            // In air, apply gravity
-	            if (vspd < 10) {
-					vspd += grav;
-	            }
-	        }
-	
-			var is_moving = false;
-	        // Horizontal input
-	        if (!wall_jumping) {
-	            if (right_key) {
-	                hspd = spd;
-					is_moving = true;
-					image_xscale = 1; // face right
-	            } else if (left_key) {
-	                hspd = -spd;
-					is_moving = true;
-					image_xscale = -1; // face left
-	            } else {
-	                hspd = 0;
-	            }
-	        }
-		
-			//-------------------------------------------------------------
-			// 5) Sprite Adjustments Based on Movement
-			//-------------------------------------------------------------
-			var is_on_ground = place_meeting(x, y + 1, obj_solid_parent);
-			if (!is_on_ground) {
-				/*
-				if (sprite_index != spr_jump) {
-					sprite_index = spr_jump;
-			        image_speed = 0.5;
-				}
-				*/
-			} else {
-				// update sprite based on movement
-				if (is_moving) {
-					if (sprite_index != spr_run) {
-			            sprite_index = spr_run;
-			            image_speed = 0.5;
-		            }
-		        } else {
-					// if not moving, set to idle sprite
-			        if (sprite_index != spr_idle) {
-		                sprite_index = spr_idle;
-		                image_speed = 0;
-		                image_index = 0;
-		            }
-				}
-			}
-
-            //-------------------------------------------------------------
-            // VERTICAL COLLISION CHECK (check BEFORE actually moving)
-            //-------------------------------------------------------------
-            var newY = y + vspd;
-
-            // If moving vertically won’t collide, just move
-            if (!place_meeting(x, newY, obj_solid_parent)) {
-                y = newY;
-            } 
-            else {
-                // If it would collide, move until just before collision
-                var verticalDir = sign(vspd);
-                while (!place_meeting(x, y + verticalDir, obj_solid_parent)) {
-                    y += verticalDir;
-                }
-                // Stop vertical speed
-                vspd = 0;
-            }
-
-            //-------------------------------------------------------------
-            // HORIZONTAL COLLISION CHECK
-            //-------------------------------------------------------------
-            var newX = x + hspd;
-
-            // If moving horizontally won’t collide, just move
-            if (!place_meeting(newX, y, obj_solid_parent)) {
-                x = newX;
-            } 
-            else {
-                // If it would collide, move until just before collision
-                var horizontalDir = sign(hspd);
-                while (!place_meeting(x + horizontalDir, y, obj_solid_parent)) {
-                    x += horizontalDir;
-                }
-                // Stop horizontal speed
-                hspd = 0;
-            }
-			
-			
-        }
-
-        // Optional debug messages if you want to verify ground detection
-        /*
-        if (place_meeting(x, y + 1, obj_solid_parent)) {
-            show_debug_message("Ground detected!");
-        } else {
-            show_debug_message("No ground detected!");
-        }
-        */
-		
-    }
-	
-	//summon the sheet music
-		if (keyboard_check_pressed(vk_space)) {
-		   if (instance_number(obj_sheetMusic) > 0) {
-		        // staff is open => close it
-				        show_debug_message("Number of staff before destruction: " + string(instance_number(obj_sheetMusic)));
-
-					// staff is open => close it
-					with (obj_sheetMusic) {
-					    show_debug_message("Destroying staff ID: " + string(id));
-					    instance_destroy();
-					}
-
-					show_debug_message("Number of staff after destruction: " + string(instance_number(obj_sheetMusic)));
-			} else {
-			    var offset_x = 50;  // Adjust this value to place it in front of the player
-				var offset_y = -50;   // Adjust if needed for vertical alignment
-				var music = instance_create_layer(x + (image_xscale * offset_x), y + offset_y, "StaffLayer", obj_sheetMusic);
-				music.visible = true;
-			}
-		}
+// 0) Early exit if puzzle is open or sheetMusic is present
+if (global.puzzle_active) exit;
+if (instance_number(obj_sheetMusic) > 0) {
+    // Only handle sheet music in this block if you want
+    // e.g. if puzzle is open, skip movement
+    // But let's skip for now:
 }
 
-//-------------------------------------
-// 4) Health and death
-//-------------------------------------
+//-----------------------------------------
+// 1) Key Inputs
+//-----------------------------------------
+var up_key     = keyboard_check(vk_up) || keyboard_check(ord("W"));
+var down_key   = keyboard_check(vk_down) || keyboard_check(ord("S"));
+var left_key   = keyboard_check(vk_left) || keyboard_check(ord("A"));
+var right_key  = keyboard_check(vk_right) || keyboard_check(ord("D"));
+var jump_key   = keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
+
+// We'll do our ground check here,
+// but we'll confirm again after vertical collision below
+var isOnGround = place_meeting(x, y + 2, obj_solid_parent);
+
+//-----------------------------------------
+// 2) Ladder Logic
+//-----------------------------------------
+var onLadder = place_meeting(x, y, obj_ladder); 
+if (onLadder && (up_key || down_key)) {
+    isClimbing = true;
+} else if (!onLadder) {
+    isClimbing = false;
+}
+
+//-----------------------------------------
+// 3) Wall Detection
+//-----------------------------------------
+var wall_on_left  = place_meeting(x - 1, y, obj_solid_parent);
+var wall_on_right = place_meeting(x + 1, y, obj_solid_parent);
+
+wall_direction = 0;  // -1 if left, +1 if right, 0 if none
+if (wall_on_left)  wall_direction = -1;
+if (wall_on_right) wall_direction =  1;
+
+//-----------------------------------------
+// 4) Jumps (Normal + Wall Jump)
+//-----------------------------------------
+if (jump_key) 
+{
+    if (isOnGround) {
+        // Normal jump
+        vspd = -jspd; 
+        wall_jumping = false; 
+    }
+    else {
+        // Potential wall jump
+        if (wall_direction != 0) {
+            vspd = -jspd;
+            hspd = wall_jump_force * -wall_direction;
+            wall_jumping = true;
+            alarm[2] = 30;
+        }
+    }
+}
+
+// Reset if we land on the ground
+if (isOnGround) {
+    wall_jumping = false;
+}
+
+//-----------------------------------------
+// 5) Movement & Gravity (or Ladder)
+//-----------------------------------------
+if (isClimbing) 
+{
+    // Cancel normal gravity
+    vspd = 0; 
+    if (up_key)   y -= climbSpeed;
+    if (down_key) y += climbSpeed;
+}
+else 
+{
+    // Normal platformer gravity
+    var grav = 0.5; 
+    if (!isOnGround) {
+        // apply gravity
+        if (vspd < 10) vspd += grav;
+    }
+}
+
+//-----------------------------------------
+// 6) Horizontal Movement
+//-----------------------------------------
+var isMoving = false;
+
+// If you're not in the middle of a "wall jump push", set horizontal speed from input
+if (!wall_jumping) {
+    if (right_key) {
+        hspd = spd;
+        isMoving = true;
+        image_xscale = 1;
+    }
+    else if (left_key) {
+        hspd = -spd;
+        isMoving = true;
+        image_xscale = -1;
+    }
+    else {
+        hspd = 0;
+    }
+}
+
+//-----------------------------------------
+// 7) Collision Checks
+//-----------------------------------------
+// Vertical
+var newY = y + vspd;
+if (!place_meeting(x, newY, obj_solid_parent)) {
+    y = newY;
+} 
+else {
+    var vd = sign(vspd);
+    // move up/down until we just collide
+    while(!place_meeting(x, y + vd, obj_solid_parent)) {
+        y += vd;
+    }
+    vspd = 0;
+}
+
+// Re-check if on ground AFTER the vertical collision:
+isOnGround = place_meeting(x, y + 2, obj_solid_parent);
+
+// Horizontal
+var newX = x + hspd;
+if (!place_meeting(newX, y, obj_solid_parent)) {
+    x = newX;
+} 
+else {
+    var hd = sign(hspd);
+    // move left/right until we just collide
+    while(!place_meeting(x + hd, y, obj_solid_parent)) {
+        x += hd;
+    }
+    hspd = 0;
+}
+
+//-----------------------------------------
+// 8) Determine "State" and Set Sprite
+//-----------------------------------------
+var movement_state = "";
+
+// Ladder state takes priority
+if (isClimbing) 
+{
+    movement_state = "climb";
+}
+// If not climbing, check if on ground or in air
+else if (!isOnGround) 
+{
+    // separate "jump" vs "fall" by vspd
+    if (vspd < 0) movement_state = "jump";
+    else          movement_state = "fall";
+}
+else 
+{
+    // on ground
+    if (isMoving) movement_state = "run";
+    else          movement_state = "idle";
+}
+
+// Switch sprite based on movement_state
+switch (movement_state) 
+{
+    case "idle":
+        if (sprite_index != spr_idle) {
+            sprite_index = spr_idle;
+            image_speed  = 0;
+            image_index  = 0;
+        }
+        break;
+        
+    case "run":
+        if (sprite_index != spr_run) {
+            sprite_index = spr_run;
+            image_speed  = 0.5;
+        }
+        break;
+        
+    case "jump":
+        if (sprite_index != spr_jump) {
+            sprite_index = spr_jump;
+            image_speed  = 0.5;
+        }
+        break;
+        
+ 
+        
+
+}
+
+//-----------------------------------------
+// 9) Summon/Destroy Sheet Music
+//-----------------------------------------
+if (keyboard_check_pressed(vk_space)) 
+{
+    if (instance_number(obj_sheetMusic) > 0) {
+        with (obj_sheetMusic) instance_destroy();
+    } 
+    else {
+        var offset_x = 50 * image_xscale;
+        var offset_y = -50;
+        var music = instance_create_layer(x + offset_x, y + offset_y, "StaffLayer", obj_sheetMusic);
+        music.visible = true;
+    }
+}
+
+//-----------------------------------------
+// 10) Health/Death Logic
+//-----------------------------------------
 health -= damage_taken;
-if (health <= 0) {
-	if (sprite_index != spr_death) {
-		sprite_index = spr_death;
-		image_speed = 0.2;
-	}
-    instance_destroy(); // destroy player
+if (health <= 0) 
+{
+    if (sprite_index != spr_death) {
+        sprite_index = spr_death;
+        image_speed  = 0.2;
+    }
+    instance_destroy(); // remove player
 }
