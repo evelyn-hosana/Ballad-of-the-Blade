@@ -1,5 +1,4 @@
 /// @description Place Necessary Objects
-
 global.hidden = false;
 global.puzzle_active = true;
 all_correct = false;

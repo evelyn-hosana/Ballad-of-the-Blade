@@ -1,6 +1,6 @@
 //Create
 //dont need yet? but maybe
-//depth = -9999;
+depth = -9999;
 
 //textbox parameters
 textbox_width = 360;

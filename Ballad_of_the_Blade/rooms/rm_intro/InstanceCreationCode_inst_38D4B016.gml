@@ -1,4 +1,4 @@
 // Signpost #3 creation code
-text[0] = "You sure you haven't played this before?";
-text[1] = "Now walk into that box to go to the next room!";
+text[0] = "Looks like this forest goes deeper...";
+text[1] = "What else could be here?";
 sign_number = 8;

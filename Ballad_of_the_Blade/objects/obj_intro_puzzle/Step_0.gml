@@ -56,4 +56,8 @@ if (!global.intro_complete) {
 
 if (global.intro_complete && !global.puzzle_active) {
 	instance_destroy();
+	//open the gate!
+	with (obj_gate) {
+        gate_open = true; 
+    }
 }
