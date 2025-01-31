@@ -15,7 +15,7 @@ if (keyboard_check_pressed(vk_f11)) {
 	window_set_fullscreen(!window_get_fullscreen());
 }
 
-// puzzle 1
+// puzzle undo
 if (keyboard_check_direct(vk_control) && keyboard_check_pressed(ord("Z"))) {
 	if (global.note_count > 0) {
 	    // get last placed note

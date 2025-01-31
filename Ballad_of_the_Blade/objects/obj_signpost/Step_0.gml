@@ -13,12 +13,36 @@ if (keyboard_check_pressed(ord("E"))) {
 	}
 }
 
-if (sign_number == 7) {
-	show_debug_message("SIGN");
+if (room == rm_intro && sign_number == 7) {
 	if (textbox_created && !instance_exists(obj_textbox)) { // if textbox destroyed but flag is true
 		// display puzzle
-		instance_create_layer(x, y, "signposts", obj_intro_puzzle);
-		show_debug_message("Puzzle created");
+		instance_create_layer(x, y, "StaffLayer", obj_intro_puzzle);
 		textbox_created = false; // reset flag
 	}
+} else if (room == rm_one && sign_number == 2) {
+	if (textbox_created && !instance_exists(obj_textbox)) { // if textbox destroyed but flag is true
+		// display puzzle
+		instance_create_layer(x, y, "StaffLayer", obj_puzzle_2);
+		textbox_created = false; // reset flag
+	}
+} else if (room == rm_one && sign_number == 4) {
+	if (textbox_created && !instance_exists(obj_textbox)) { // if textbox destroyed but flag is true
+		// display puzzle
+		instance_create_layer(x, y, "StaffLayer", obj_puzzle_3);
+		textbox_created = false; // reset flag
+	}
+}
+
+if (instance_exists(obj_player)) {
+	if (point_distance(x, y, obj_player.x, obj_player.y) <= interaction_distance) {
+		in_range = true;
+	} else {
+		in_range = false;
+	}
+}
+
+if (global.puzzle_active) {
+	visible = 0;
+} else {
+	visible = 1;
 }

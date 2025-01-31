@@ -24,3 +24,8 @@ hspd = 0;
 dist = 50; // distance to maintain
 range = 50;
 in_range = false;
+
+// animation control
+last_xdir = 1; // default to right
+image_index = 16; // start with idle right
+image_speed = 0.2;

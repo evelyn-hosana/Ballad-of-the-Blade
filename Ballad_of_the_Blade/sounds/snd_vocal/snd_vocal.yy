@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":29.448,
+  "duration":29.832,
   "name":"snd_vocal",
   "parent":{
     "name":"Puzzle 1",

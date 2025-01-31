@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_ave_maria",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":22.872,
+  "name":"snd_ave_maria",
+  "parent":{
+    "name":"Puzzle 1",
+    "path":"folders/Sounds/Puzzle 1.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_ave_maria.mp3",
+  "type":0,
+  "volume":1.0,
+}

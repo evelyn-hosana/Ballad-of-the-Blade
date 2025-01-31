@@ -8,6 +8,8 @@ if (room == rm_one) {
 	image_yscale = 0.32;
 }
 
+reflection = false;
+
 correct_key = noone;
 correct = false;
 
@@ -27,6 +29,7 @@ if (room != rm_intro) {
 	snap[10].sound = snd_f_2;
 	snap[11].sound = snd_g_2;
 }
+
 snap[3] = instance_create_layer(x, y + 9, "StaffNotesLayer", obj_snapNoteToKey);
 snap[4] = instance_create_layer(x, y + 6, "StaffNotesLayer", obj_snapNoteToKey);
 snap[5] = instance_create_layer(x, y + 3, "StaffNotesLayer", obj_snapNoteToKey);

@@ -1,7 +1,6 @@
 /// @description Place Necessary Objects
 global.hidden = false;
 global.puzzle_active = true;
-all_correct = false;
 
 // note spawners
 quarter_note = instance_create_layer(x - 170, y + 40, "StaffNotesLayer", obj_noteSpawner);

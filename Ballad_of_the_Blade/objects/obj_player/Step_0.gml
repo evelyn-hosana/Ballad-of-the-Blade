@@ -235,12 +235,9 @@ if (keyboard_check_pressed(vk_space))
 //-----------------------------------------
 // 10) Health/Death Logic
 //-----------------------------------------
-health -= damage_taken;
-if (health <= 0) 
-{
+if (health <= 0) {
     if (sprite_index != spr_death) {
         sprite_index = spr_death;
         image_speed  = 0.2;
     }
-    instance_destroy(); // remove player
 }

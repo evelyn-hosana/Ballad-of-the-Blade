@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_fur_elise",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":24.216,
+  "name":"snd_fur_elise",
+  "parent":{
+    "name":"Puzzle 1",
+    "path":"folders/Sounds/Puzzle 1.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_fur_elise.mp3",
+  "type":0,
+  "volume":1.0,
+}

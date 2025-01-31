@@ -25,7 +25,7 @@ if (!global.puzzle_1_complete && !global.hidden) {
     var temp_correct = true; // temporary flag for current check
 
     // check each section's "correct" property
-    for (var i = 1; i <= 12; i++) {
+    for (var i = 1; i <= total_answers; i++) {
         var section = variable_instance_get(self, "section_" + string(i));
         if (section != noone) {
             if (!section.correct) {
@@ -42,10 +42,10 @@ if (!global.puzzle_1_complete && !global.hidden) {
     // update "all_correct" only when conditions change
     if (temp_correct && !all_correct) {
         all_correct = true; // set to true only when all are correct
-        audio_play_sound(snd_violin, 1, false); // play audio
+        audio_play_sound(snd_scarborough_fair, 1, false); // play audio
 
         // set a timer to wait for audio to finish
-        var audio_length = audio_sound_length(snd_violin);
+        var audio_length = audio_sound_length(snd_scarborough_fair);
         alarm[0] = ceil(room_speed * audio_length); // trigger alarm after audio finishes
     }
 }

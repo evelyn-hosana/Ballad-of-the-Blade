@@ -22,6 +22,10 @@ if (instance_exists(obj_snapNoteToKey)) {
     var placed_note = instance_create_layer(nearest_snap.x, nearest_snap.y, "StaffNotesLayer", obj_placedNote);
 	placed_note.image_index = global.sprite_frame_selected;
 	
+	if (reflection == true) {
+		placed_note.image_angle += 180;
+	}
+	
 	// set this note as active
     active_note = placed_note;
 	 

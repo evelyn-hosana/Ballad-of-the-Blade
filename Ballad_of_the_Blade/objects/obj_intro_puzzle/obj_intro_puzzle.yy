@@ -10,10 +10,12 @@
   ],
   "managed":true,
   "name":"obj_intro_puzzle",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_puzzle_1","path":"objects/obj_puzzle_1/obj_puzzle_1.yy",},"propertyId":{"name":"total_answers","path":"objects/obj_puzzle_1/obj_puzzle_1.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"3",},
+  ],
   "parent":{
-    "name":"Intro Puzzle",
-    "path":"folders/Objects/Intro Puzzle.yy",
+    "name":"Other Puzzles",
+    "path":"folders/Objects/Other Puzzles.yy",
   },
   "parentObjectId":{
     "name":"obj_puzzle_1",

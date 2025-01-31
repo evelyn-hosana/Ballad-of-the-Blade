@@ -10,5 +10,6 @@ if (alarm[0] <= 0) // Only take damage if cooldown is over
 // Check if health is zero or below
 if (health <= 0) {
     show_debug_message("Player died!");
+	audio_play_sound(snd_death, 1, false);
     room_restart(); // Restart only when health is depleted
 }

@@ -10,3 +10,5 @@ sign_number = 0;
 textbox_created = false;
 interaction_distance = 64;
 // etc...
+
+in_range = false;

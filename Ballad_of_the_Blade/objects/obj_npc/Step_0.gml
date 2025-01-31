@@ -120,7 +120,7 @@ switch (state) {
 
 		var dir = point_direction(x, y, target_x, target_y);
 		
-		ground_level = 1050;
+		ground_level = 1040;
 		
 		// if not on ground level
 		if (bbox_bottom < ground_level) {
@@ -128,12 +128,36 @@ switch (state) {
 				x += lengthdir_x(4, dir);
 			    y += lengthdir_y(4, dir);
 			}
+			
+			// update sprite based on movement direction
+	        if (x < target_x) { // moving right
+	            if (image_index < 0 || image_index > 7) {
+                    image_index = 0; // ensure loop within 0-7
+                }
+	        } 
+	        else if (x > target_x) { // moving left
+	            if (image_index < 8 || image_index > 15) {
+                    image_index = 8; // ensure loop within 8-15
+                }
+	        }
 		} else {
 			show_debug_message("On ground!");
 			vspd = 0;
 			hspd = 0;
 			state = NPCState.FINAL_THOUGHTS;	
 		}
+		
+		if (hspd == 0) {
+	        if (last_xdir > 0) {
+                if (image_index < 16 || image_index > 19) {
+                    image_index = 16; // ensure loop within 16-19 (idle right)
+                }
+            } else {
+                if (image_index < 20 || image_index > 23) {
+                    image_index = 20; // ensure loop within 20-23 (idle left)
+                }
+            }
+	    }
 		break;
 		
 	case NPCState.FINAL_THOUGHTS:
@@ -164,6 +188,8 @@ switch (state) {
 		
 		x += lengthdir_x(4, dir);
 		y += lengthdir_y(4, dir);
+		
+		image_index = 0;
 		
 		break;
 }
@@ -201,6 +227,23 @@ if (!place_meeting(newX, y, obj_solid_parent)) {
 	}
 	// Stop horizontal speed
 	hspd = 0;
+}
+
+if (hspd != 0) {
+	last_xdir = sign(hspd); // -1 (left) or 1 (right)	
+}
+
+if (state != NPCState.FOLLOW && state != NPCState.EXIT) {
+    // set idle animation based on last movement direction
+    if (last_xdir > 0) { // last movement was right
+        if (image_index < 16 || image_index > 19) {
+            image_index = 16; // loop within idle right (16-19)
+        }
+    } else { // last movement was left
+        if (image_index < 20 || image_index > 23) {
+            image_index = 20; // loop within idle left (20-23)
+        }
+    }
 }
 
 // set font settings repeatedly

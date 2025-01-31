@@ -30,6 +30,7 @@ if (in_range && show_indicator) {
 
     // draw text
     draw_set_color(c_white);
+
     draw_set_alpha(1);
     draw_text(indicator_x, indicator_y, indicator_text);
 }

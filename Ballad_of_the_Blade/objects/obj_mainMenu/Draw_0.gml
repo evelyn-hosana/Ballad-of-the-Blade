@@ -1,8 +1,8 @@
 /// @description Draw "Play" Text
 
 // draw rounded rectangle behind text
-var rect_width = 375;
-var rect_height = 55;
+var rect_width = 450;
+var rect_height = 60;
 var rect_x = (display_get_width() / 2) - (rect_width / 2);
 var rect_y = display_get_height() - 100;
 draw_set_color(make_color_rgb(107, 35, 41));
