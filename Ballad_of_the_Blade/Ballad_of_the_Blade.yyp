@@ -78,6 +78,7 @@
     {"id":{"name":"obj_textbox","path":"objects/obj_textbox/obj_textbox.yy",},},
     {"id":{"name":"obj_tiles","path":"objects/obj_tiles/obj_tiles.yy",},},
     {"id":{"name":"obj_tutorialTrigger","path":"objects/obj_tutorialTrigger/obj_tutorialTrigger.yy",},},
+    {"id":{"name":"rm_final","path":"rooms/rm_final/rm_final.yy",},},
     {"id":{"name":"rm_intro","path":"rooms/rm_intro/rm_intro.yy",},},
     {"id":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
     {"id":{"name":"rm_one","path":"rooms/rm_one/rm_one.yy",},},
@@ -152,6 +153,7 @@
     {"roomId":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
     {"roomId":{"name":"rm_intro","path":"rooms/rm_intro/rm_intro.yy",},},
     {"roomId":{"name":"rm_one","path":"rooms/rm_one/rm_one.yy",},},
+    {"roomId":{"name":"rm_final","path":"rooms/rm_final/rm_final.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
