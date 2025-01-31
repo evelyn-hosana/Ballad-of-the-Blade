@@ -107,6 +107,7 @@
     {"id":{"name":"spr_diagonalsolid","path":"sprites/spr_diagonalsolid/spr_diagonalsolid.yy",},},
     {"id":{"name":"spr_font","path":"sprites/spr_font/spr_font.yy",},},
     {"id":{"name":"spr_forest","path":"sprites/spr_forest/spr_forest.yy",},},
+    {"id":{"name":"spr_game_final","path":"sprites/spr_game_final/spr_game_final.yy",},},
     {"id":{"name":"spr_gandalftasset","path":"sprites/spr_gandalftasset/spr_gandalftasset.yy",},},
     {"id":{"name":"spr_gate_open","path":"sprites/spr_gate_open/spr_gate_open.yy",},},
     {"id":{"name":"spr_gate","path":"sprites/spr_gate/spr_gate.yy",},},
